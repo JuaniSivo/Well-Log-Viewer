@@ -1,7 +1,7 @@
 # main.py
 
 import streamlit as st
-# import lasio
+import lasio
 # from app.preprocessing import clean_data
 # from app.visualization import plot_logs
 # from app.clustering import apply_kmeans
