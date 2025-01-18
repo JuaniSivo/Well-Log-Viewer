@@ -2,6 +2,7 @@
 
 import streamlit as st
 import lasio
+from io import StringIO
 # from app.preprocessing import clean_data
 # from app.visualization import plot_logs
 # from app.clustering import apply_kmeans
@@ -10,9 +11,32 @@ def load_file():
     """Loads a .las file and returns a LASFile object."""
     file = st.file_uploader("Upload a .las file", type=[".las"])
     if file is not None:
-        las = lasio.read(file)
-        return las
+        try:
+            bytes_data = file.read()
+            str_io = StringIO(bytes_data.decode('Windows-1252'))
+            las = lasio.read(str_io)
+            return las
+
+        except UnicodeDecodeError as e:
+            st.error(f"error loading log.las: {e}")
     return None
+
+def load_data(uploaded_file):
+    if uploaded_file is not None:
+        try:
+            bytes_data = uploaded_file.read()
+            str_io = StringIO(bytes_data.decode('Windows-1252'))
+            las_file = lasio.read(str_io)
+            well_data = las_file.df()
+            well_data['DEPTH'] = well_data.index
+
+        except UnicodeDecodeError as e:
+            st.error(f"error loading log.las: {e}")
+    else:
+        las_file = None
+        well_data = None
+
+    return las_file, well_data
 
 def display_metadata(las):
     """Displays the metadata of the .las file."""
