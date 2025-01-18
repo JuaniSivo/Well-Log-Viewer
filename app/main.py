@@ -10,7 +10,7 @@ def load_file():
     """Loads a .las file and returns a LASFile object."""
     file = st.file_uploader("Upload a .las file", type=[".las"])
     if file is not None:
-        las = lasio.reader(file)
+        las = lasio.read(file)
         return las
     return None
 
