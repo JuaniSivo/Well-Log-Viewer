@@ -1,10 +1,11 @@
 name: wellLogViewer
 channels:
   - kinverarity
+  - conda-forge
   - defaults
   - https://repo.anaconda.com/pkgs/main
   - https://repo.anaconda.com/pkgs/r
-dependencies:
+dependencies:c
   - altair=5.0.1=py312hca03da5_0
   - arrow-cpp=17.0.0=h0b7d223_1
   - attrs=24.3.0=py312hca03da5_0
